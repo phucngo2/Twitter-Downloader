@@ -6,7 +6,7 @@ using X.Core.Models;
 
 namespace X.Application.Services.TwitterServices;
 
-public partial class TweeterService(IMapper mapper) : ITweeterService
+public partial class TwitterService(IMapper mapper) : ITwitterService
 {
     private readonly IMapper _mapper = mapper;
     public async Task<TweetMediasResponse> ListTweetMediasAsync(TweetMediasRequest request)
@@ -44,7 +44,7 @@ public partial class TweeterService(IMapper mapper) : ITweeterService
             }
         }
 
-        if (!TweeterConstants.ValidTweetTypeNames.Contains(tweetTypename))
+        if (!TwitterConstants.ValidTweetTypeNames.Contains(tweetTypename))
         {
             throw new Exception("Tweet unavailable!");
         }

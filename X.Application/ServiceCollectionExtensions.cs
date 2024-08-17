@@ -10,7 +10,7 @@ public static class ServiceCollectionExtensions
     {
         services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
-        services.AddScoped<ITweeterService, TweeterService>();
+        services.AddScoped<ITwitterService, TwitterService>();
 
         return services;
     }

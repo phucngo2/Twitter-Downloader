@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace X.Core.Constants;
 
-public static partial class TweeterConstants
+public static partial class TwitterConstants
 {
     public const string XGraphqlURL = "https://api.x.com/graphql/I9GDzyCGZL2wSoYFFrrTVw/TweetResultByRestId";
     public const string XTokenURL = "https://api.x.com/1.1/guest/activate.json";

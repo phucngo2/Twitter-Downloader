@@ -6,14 +6,14 @@ namespace X.API.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class TweeterController(ITweeterService tweeterService) : ControllerBase
+public class TwitterController(ITwitterService twitterService) : ControllerBase
 {
-    private readonly ITweeterService _tweeterService = tweeterService;
+    private readonly ITwitterService _twitterService = twitterService;
 
     [HttpPost]
     public async Task<IActionResult> ListTweetMediasAsync(TweetMediasRequest request)
     {
-        var res = await _tweeterService.ListTweetMediasAsync(request);
+        var res = await _twitterService.ListTweetMediasAsync(request);
         return Ok(res);
     }
 }

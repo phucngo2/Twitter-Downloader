@@ -4,9 +4,9 @@ using X.Core.Models;
 
 namespace X.Application.Services.TwitterServices.MappingProfiles;
 
-public class TweeterMappingProfiles : Profile
+public class TwitterMappingProfiles : Profile
 {
-    public TweeterMappingProfiles()
+    public TwitterMappingProfiles()
     {
         CreateMap<TweetMedia, TweetMediaDto>()
             .ForMember(

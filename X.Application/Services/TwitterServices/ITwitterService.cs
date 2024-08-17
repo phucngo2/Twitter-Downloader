@@ -2,7 +2,7 @@
 
 namespace X.Application.Services.TwitterServices;
 
-public interface ITweeterService
+public interface ITwitterService
 {
     public Task<TweetMediasResponse> ListTweetMediasAsync(TweetMediasRequest request);
 }
