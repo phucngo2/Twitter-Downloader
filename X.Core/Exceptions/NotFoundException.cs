@@ -1,6 +1,6 @@
 ﻿namespace X.Core.Exceptions;
 
-public abstract class NotFoundException : Exception
+public class NotFoundException : Exception
 {
     public NotFoundException() : base("Not found!")
     {

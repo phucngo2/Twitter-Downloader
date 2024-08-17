@@ -1,5 +1,5 @@
 ﻿namespace X.Core.Exceptions;
 
-public abstract class ConflictException(string message) : Exception(message)
+public class ConflictException(string message) : Exception(message)
 {
 }
