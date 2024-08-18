@@ -27,4 +27,7 @@ public class TweetMedia
 
     [JsonPropertyName("video_info")]
     public TweetVideoInfo? VideoInfo { get; set; }
+
+    [JsonPropertyName("sizes")]
+    public Dictionary<string, TweetMediaSize>? Sizes { get; set; }
 }
