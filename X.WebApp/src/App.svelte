@@ -1,8 +1,12 @@
 <script lang="ts">
+  import Layout from "./lib/components/Layout.svelte";
+  import SearchForm from "./lib/components/SearchForm.svelte";
 </script>
 
-<main>
-  <h1 class="text-blue-400">Hello, 世界!</h1>
+<main class="app">
+  <Layout>
+    <SearchForm />
+  </Layout>
 </main>
 
 <style>
