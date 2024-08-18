@@ -10,7 +10,7 @@ export interface TweetMedia {
   idStr: string;
   mediaUrlHttps: string;
   type: "video" | "photo" | "animated_gif";
-  videoVariants: TweetVideoVariant[];
+  videoVariants?: TweetVideoVariant[];
 }
 
 export interface TweetMediaResponse {

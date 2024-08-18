@@ -35,7 +35,7 @@
       {:else}
         <span>🔍 </span>
       {/if}
-      <span>Search</span>
+      <span class="hidden md:inline-block">Search</span>
     </button>
   </label>
 </form>

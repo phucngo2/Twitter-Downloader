@@ -2,6 +2,7 @@
   import SearchForm from "./SearchForm.svelte";
   import { useTweetMediaMutation } from "../queries";
   import ErrorAlert from "./ErrorAlert.svelte";
+  import MediaList from "./MediaList.svelte";
 
   const mutation = useTweetMediaMutation();
   function handleMutation(event: CustomEvent<string>) {
@@ -15,6 +16,6 @@
   {#if $mutation.isError}
     <ErrorAlert message={$mutation.error.message} />
   {:else if $mutation.data}
-    <div>{$mutation.data}</div>
+    <MediaList mediaResponse={$mutation.data} />
   {/if}
 </div>

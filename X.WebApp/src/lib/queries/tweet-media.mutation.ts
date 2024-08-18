@@ -5,10 +5,12 @@ import type { TweetMediaResponse } from "../types";
 export const useTweetMediaMutation = () => {
   return createMutation({
     mutationKey: ["tweet-medias"],
-    mutationFn: (url: string) => {
-      return axios.post<TweetMediaResponse>(TWITTER_API_URL, {
-        url,
-      });
+    mutationFn: async (url: string) => {
+      return (
+        await axios.post<TweetMediaResponse>(TWITTER_API_URL, {
+          url,
+        })
+      ).data;
     },
   });
 };
