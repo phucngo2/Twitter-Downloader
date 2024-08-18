@@ -1,11 +1,15 @@
 <script lang="ts">
+  import { createEventDispatcher } from "svelte";
+  export let isPending: boolean;
+
+  const dispatch = createEventDispatcher();
   let tweetUrl: string = "";
 
   const handleSubmit = () => {
     if (!tweetUrl) {
       return;
     }
-    console.log(tweetUrl);
+    dispatch("submit", tweetUrl);
   };
 </script>
 
@@ -22,9 +26,16 @@
       bind:value={tweetUrl}
     />
     <button
-      disabled={!tweetUrl}
+      disabled={!tweetUrl || isPending}
       type="submit"
-      class="h-8 min-h-8 btn btn-primary">🔍 Search</button
+      class="h-8 min-h-8 btn btn-primary"
     >
+      {#if isPending}
+        <span class="loading loading-dots loading-sm"></span>
+      {:else}
+        <span>🔍 </span>
+      {/if}
+      <span>Search</span>
+    </button>
   </label>
 </form>
