@@ -15,16 +15,20 @@
 
 <form
   on:submit|preventDefault={handleSubmit}
-  class="flex flex-row items-center justify-center gap-2 p-4 card bg-neutral card-bordered"
+  class="flex flex-row items-center justify-center w-full gap-2 p-4 card bg-neutral card-bordered"
 >
-  <label class="flex items-center flex-1 gap-2 pl-3 pr-2 input input-bordered">
+  <label
+    class="flex items-center flex-1 w-full gap-2 pl-3 pr-2 input input-bordered"
+  >
     <span>😎</span>
-    <input
-      type="text"
-      class="grow"
-      placeholder="Paste tweet url here..."
-      bind:value={tweetUrl}
-    />
+    <div class="grow">
+      <input
+        type="text"
+        class="w-full"
+        placeholder="Paste tweet url here..."
+        bind:value={tweetUrl}
+      />
+    </div>
     <button
       disabled={!tweetUrl || isPending}
       type="submit"

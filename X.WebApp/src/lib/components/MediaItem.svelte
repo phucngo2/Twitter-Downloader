@@ -28,7 +28,8 @@
         href={mediaUrl}
         target="_blank"
         rel="noreferrer"
-        class="px-3 h-9 btn btn-secondary min-h-9">🚀 Open in new tab</a
+        class="px-3 truncate h-9 btn btn-secondary min-h-9"
+        >🚀 Open in new tab</a
       >
     </div>
   </div>
