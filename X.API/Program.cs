@@ -13,7 +13,10 @@ builder.Services.AddCors(options =>
         policy =>
         {
             var origins = builder.Configuration.GetSection("Cors:AllowedOrigins").Get<string[]>();
-            policy.WithOrigins(origins!);
+            policy.WithOrigins(origins!)
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .AllowCredentials();
         });
 });
 
