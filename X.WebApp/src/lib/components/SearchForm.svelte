@@ -5,6 +5,10 @@
   const dispatch = createEventDispatcher();
   let tweetUrl: string = "";
 
+  const handleClearInput = () => {
+    tweetUrl = "";
+  };
+
   const handleSubmit = () => {
     if (!tweetUrl) {
       return;
@@ -20,7 +24,22 @@
   <label
     class="flex items-center flex-1 w-full gap-2 pl-3 pr-2 input input-bordered"
   >
-    <span>😎</span>
+    <!-- Clear Button -->
+    {#if tweetUrl}
+      <div class="tooltip" data-tip="Clear input...">
+        <span
+          class="cursor-pointer"
+          on:click={handleClearInput}
+          on:keydown={handleClearInput}
+          role="button"
+          aria-label="Clear search input"
+          tabindex="0">😵</span
+        >
+      </div>
+    {:else}
+      <span>😎</span>
+    {/if}
+    <!-- Input -->
     <div class="grow">
       <input
         type="text"
@@ -29,6 +48,7 @@
         bind:value={tweetUrl}
       />
     </div>
+    <!-- Submit Button -->
     <button
       disabled={!tweetUrl || isPending}
       type="submit"
