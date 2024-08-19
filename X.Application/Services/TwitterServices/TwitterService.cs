@@ -39,8 +39,20 @@ public partial class TwitterService(IMapper mapper) : ITwitterService
             }
             if (reason == "NsfwLoggedOut")
             {
-                // TODO: Request using cookie
-                throw new Exception("Tweet nsfw!");
+                XCookie? cookie = TwitterConstants.GetCookie();
+                if (cookie != null)
+                {
+                    tweetResponse = await RequestTweetAsync(tweetId, cookie);
+                    if (tweetResponse?.TweetResult?.Result is null)
+                    {
+                        throw new NotFoundException("Tweet not found!");
+                    }
+                    tweetTypename = tweetResponse.TweetResult.Result.TypeName;
+                }
+                else
+                {
+                    throw new Exception("Tweet nsfw!");
+                }
             }
         }
 

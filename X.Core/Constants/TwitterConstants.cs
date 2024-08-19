@@ -1,5 +1,6 @@
 ﻿using System.Text.Json;
 using System.Text.RegularExpressions;
+using X.Core.Models;
 
 namespace X.Core.Constants;
 
@@ -76,4 +77,36 @@ public static partial class TwitterConstants
     public static partial Regex TwitterUrlRegex();
 
     public static readonly string[] ValidTweetTypeNames = ["Tweet", "TweetWithVisibilityResults"];
+
+    public static XCookie? GetCookie()
+    {
+        string? value = Environment.GetEnvironmentVariable("X_COOKIE");
+
+        if (string.IsNullOrEmpty(value))
+        {
+            return null;
+        }
+
+        string[] claims = value.Split("; ");
+        string? ct0 = null;
+        foreach (var claim in claims)
+        {
+            if (claim.StartsWith("ct0=", StringComparison.OrdinalIgnoreCase))
+            {
+                ct0 = claim.Split("=")[1];
+                break;
+            }
+        }
+
+        if (string.IsNullOrEmpty(ct0))
+        {
+            return null;
+        }
+
+        return new XCookie
+        {
+            CookieStr = value,
+            Ct0 = ct0
+        };
+    }
 }
