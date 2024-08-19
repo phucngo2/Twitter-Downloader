@@ -71,6 +71,8 @@ public static partial class TwitterConstants
     }
 
     [GeneratedRegex(@"x\.com\/[^\/]+\/status\/(\d+)", RegexOptions.Compiled)]
+    public static partial Regex XUrlRegex();
+    [GeneratedRegex(@"twitter\.com\/[^\/]+\/status\/(\d+)", RegexOptions.Compiled)]
     public static partial Regex TwitterUrlRegex();
 
     public static readonly string[] ValidTweetTypeNames = ["Tweet", "TweetWithVisibilityResults"];

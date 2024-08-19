@@ -49,8 +49,15 @@ public partial class TwitterService
 
     private static string? GetTweetIdFromUrl(string url)
     {
-        var regex = TwitterConstants.TwitterUrlRegex();
-        var match = regex.Match(url);
-        return match.Success ? match.Groups[1].Value : null;
+        var regexes = new[] { TwitterConstants.XUrlRegex(), TwitterConstants.TwitterUrlRegex() };
+        foreach (var regex in regexes)
+        {
+            var match = regex.Match(url);
+            if (match.Success)
+            {
+                return match.Groups[1].Value;
+            }
+        }
+        return null;
     }
 }
