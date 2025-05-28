@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using X.Application.Extensions;
 using X.Application.Services.TwitterServices;
 using X.Application.Services.TwitterServices.Dtos;
 
@@ -14,6 +15,6 @@ public class TwitterController(ITwitterService twitterService) : ControllerBase
     public async Task<IActionResult> ListTweetMediasAsync(TweetMediasRequest request)
     {
         var res = await _twitterService.ListTweetMediasAsync(request);
-        return Ok(res);
+        return res.ToResult();
     }
 }

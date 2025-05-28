@@ -38,8 +38,6 @@ app.UseCors();
 
 app.UseAuthorization();
 
-app.UseMiddleware<ExceptionHandlingMiddleware>();
-
 app.MapControllers();
 
 app.Run();

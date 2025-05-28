@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using LanguageExt.Common;
 using X.Application.Services.TwitterServices.Dtos;
 using X.Core.Constants;
 using X.Core.Exceptions;
@@ -9,24 +10,24 @@ namespace X.Application.Services.TwitterServices;
 public partial class TwitterService(IMapper mapper) : ITwitterService
 {
     private readonly IMapper _mapper = mapper;
-    public async Task<TweetMediasResponse> ListTweetMediasAsync(TweetMediasRequest request)
+    public async Task<Result<TweetMediasResponse>> ListTweetMediasAsync(TweetMediasRequest request)
     {
         string? tweetId = GetTweetIdFromUrl(request.Url);
         if (string.IsNullOrEmpty(tweetId))
         {
-            throw new BadRequestException("Url not valid!");
+            return new Result<TweetMediasResponse>(new BadRequestException("Url not valid!"));
         }
 
         string? token = await RequestGuestTokenAsync();
         if (string.IsNullOrEmpty(token))
         {
-            throw new Exception("Could not request api token!");
+            return new Result<TweetMediasResponse>(new Exception("Could not request api token!"));
         }
 
         TweetResponse? tweetResponse = await RequestTweetAsync(tweetId, token);
         if (tweetResponse?.TweetResult?.Result is null)
         {
-            throw new NotFoundException("Tweet not found!");
+            return new Result<TweetMediasResponse>(new NotFoundException("Tweet not found!"));
         }
 
         string tweetTypename = tweetResponse.TweetResult.Result.TypeName;
@@ -35,7 +36,7 @@ public partial class TwitterService(IMapper mapper) : ITwitterService
             string reason = tweetResponse.TweetResult.Result.Reason;
             if (reason == "Protected")
             {
-                throw new Exception("Tweet protected!");
+                return new Result<TweetMediasResponse>(new Exception("Tweet protected!"));
             }
             if (reason == "NsfwLoggedOut")
             {
@@ -45,20 +46,20 @@ public partial class TwitterService(IMapper mapper) : ITwitterService
                     tweetResponse = await RequestTweetAsync(tweetId, cookie);
                     if (tweetResponse?.TweetResult?.Result is null)
                     {
-                        throw new NotFoundException("Tweet not found!");
+                        return new Result<TweetMediasResponse>(new NotFoundException("Nsfw Tweet not found!"));
                     }
                     tweetTypename = tweetResponse.TweetResult.Result.TypeName;
                 }
                 else
                 {
-                    throw new Exception("Tweet nsfw!");
+                    return new Result<TweetMediasResponse>(new Exception("Tweet nsfw!"));
                 }
             }
         }
 
         if (!TwitterConstants.ValidTweetTypeNames.Contains(tweetTypename))
         {
-            throw new Exception("Tweet unavailable!");
+            return new Result<TweetMediasResponse>(new Exception("Tweet unavailable!"));
         }
 
         Tweet tweet = tweetResponse.TweetResult.Result;
@@ -67,7 +68,7 @@ public partial class TwitterService(IMapper mapper) : ITwitterService
         List<TweetMedia>? mediaList = tweetLegacy?.ExtendedEntities?.Media;
         if (mediaList is null || mediaList.Count == 0)
         {
-            throw new NotFoundException("Tweet media not found!");
+            return new Result<TweetMediasResponse>(new NotFoundException("Tweet media not found!"));
         }
 
         List<TweetMediaDto> mediaDtoList = _mapper.Map<List<TweetMediaDto>>(mediaList);
