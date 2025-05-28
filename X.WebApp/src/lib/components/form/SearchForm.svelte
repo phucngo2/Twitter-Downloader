@@ -1,4 +1,8 @@
 <script lang="ts">
+  import ClearButton from "./ClearButton.svelte";
+  import FormInput from "./FormInput.svelte";
+  import LoadingButton from "./LoadingButton.svelte";
+
   interface Props {
     onSubmit: (tweetUrl: string) => void;
     isPending?: boolean;
@@ -30,42 +34,21 @@
   <label
     class="flex items-center flex-1 w-full gap-2 pl-3 pr-2 input input-bordered"
   >
-    <!-- Clear Button -->
-    {#if tweetUrl}
-      <div class="tooltip" data-tip="Clear input...">
-        <span
-          class="cursor-pointer"
-          onclick={handleClearInput}
-          onkeydown={handleClearInput}
-          role="button"
-          aria-label="Clear search input"
-          tabindex="0">😵</span
-        >
-      </div>
-    {:else}
-      <span>😎</span>
-    {/if}
-    <!-- Input -->
+    <ClearButton {tweetUrl} {handleClearInput} />
+
     <div class="grow">
-      <input
+      <FormInput
         type="text"
-        class="w-full"
+        className="w-full"
         placeholder="Paste tweet url here..."
         bind:value={tweetUrl}
       />
     </div>
-    <!-- Submit Button -->
-    <button
+
+    <LoadingButton
       disabled={!tweetUrl || isPending}
       type="submit"
-      class="h-8 min-h-8 btn btn-primary"
+      isLoading={isPending}>Search</LoadingButton
     >
-      {#if isPending}
-        <span class="loading loading-dots loading-sm"></span>
-      {:else}
-        <span>🔍 </span>
-      {/if}
-      <span class="hidden md:inline-block">Search</span>
-    </button>
   </label>
 </form>

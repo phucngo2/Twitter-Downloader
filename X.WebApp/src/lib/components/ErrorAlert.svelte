@@ -1,12 +1,14 @@
 <script lang="ts">
-  import type { Snippet } from "svelte";
-
   interface Props {
-    children: Snippet;
+    message?: string;
   }
 
-  let { children }: Props = $props();
+  let { message = "Something went wrong!" }: Props = $props();
 </script>
+
+{#snippet renderMessage(message: string)}
+  <span>{message} 🍌</span>
+{/snippet}
 
 <div role="alert" class="py-3 border alert alert-error">
   <svg
@@ -22,5 +24,5 @@
       d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
     />
   </svg>
-  <span>{@render children?.()}</span>
+  {@render renderMessage(message)}
 </div>

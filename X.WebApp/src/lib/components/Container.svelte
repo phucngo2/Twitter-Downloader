@@ -1,8 +1,8 @@
 <script lang="ts">
   import { useTweetMediaMutation } from "../queries";
   import ErrorAlert from "./ErrorAlert.svelte";
-  import MediaList from "./MediaList.svelte";
-  import SearchForm from "./SearchForm.svelte";
+  import SearchForm from "./form/SearchForm.svelte";
+  import MediaList from "./media-list/MediaList.svelte";
 
   const mutation = useTweetMediaMutation();
   const handleMutation = (tweetUrl: string) => {
@@ -14,7 +14,7 @@
   <SearchForm onSubmit={handleMutation} isPending={$mutation.isPending} />
 
   {#if $mutation.isError}
-    <ErrorAlert>{$mutation.error.message}</ErrorAlert>
+    <ErrorAlert message={$mutation.error.message || undefined} />
   {:else if $mutation.data}
     <MediaList mediaResponse={$mutation.data} />
   {/if}

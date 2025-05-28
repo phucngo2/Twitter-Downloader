@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { TweetMedia } from "../types";
+  import type { TweetMedia } from "../../types";
 
   interface Props {
     index: number;

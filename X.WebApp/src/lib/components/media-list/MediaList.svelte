@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { TweetMediaResponse } from "../types";
+  import type { TweetMediaResponse } from "../../types";
   import MediaItem from "./MediaItem.svelte";
 
   interface Props {
