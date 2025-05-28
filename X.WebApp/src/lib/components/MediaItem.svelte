@@ -1,10 +1,14 @@
 <script lang="ts">
   import type { TweetMedia } from "../types";
 
-  export let index: number;
-  export let media: TweetMedia;
+  interface Props {
+    index: number;
+    media: TweetMedia;
+  }
 
-  $: mediaUrl = (() => {
+  let { index, media }: Props = $props();
+
+  const mediaUrl = $derived.by(() => {
     if (media.type !== "video" || !media.videoVariants) {
       return media.mediaUrlHttps;
     }
@@ -14,7 +18,7 @@
       }
       return (max.bitrate || 0) > variant.bitrate ? max : variant;
     })?.url;
-  })();
+  });
 </script>
 
 <div class="p-4 card-side card bg-neutral">

@@ -1,24 +1,30 @@
 <script lang="ts">
-  import { createEventDispatcher } from "svelte";
-  export let isPending: boolean;
+  interface Props {
+    onSubmit: (tweetUrl: string) => void;
+    isPending?: boolean;
+  }
 
-  const dispatch = createEventDispatcher();
-  let tweetUrl: string = "";
+  let { onSubmit, isPending }: Props = $props();
+
+  let tweetUrl = $state<string>("");
 
   const handleClearInput = () => {
     tweetUrl = "";
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (event: SubmitEvent) => {
+    event.preventDefault();
+
     if (!tweetUrl) {
       return;
     }
-    dispatch("submit", tweetUrl);
+
+    onSubmit(tweetUrl);
   };
 </script>
 
 <form
-  on:submit|preventDefault={handleSubmit}
+  onsubmit={handleSubmit}
   class="flex flex-row items-center justify-center w-full gap-2 p-4 card bg-neutral card-bordered"
 >
   <label
@@ -29,8 +35,8 @@
       <div class="tooltip" data-tip="Clear input...">
         <span
           class="cursor-pointer"
-          on:click={handleClearInput}
-          on:keydown={handleClearInput}
+          onclick={handleClearInput}
+          onkeydown={handleClearInput}
           role="button"
           aria-label="Clear search input"
           tabindex="0">😵</span

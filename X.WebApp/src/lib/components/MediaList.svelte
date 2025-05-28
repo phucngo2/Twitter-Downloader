@@ -2,7 +2,11 @@
   import type { TweetMediaResponse } from "../types";
   import MediaItem from "./MediaItem.svelte";
 
-  export let mediaResponse: TweetMediaResponse;
+  interface Props {
+    mediaResponse: TweetMediaResponse;
+  }
+
+  let { mediaResponse }: Props = $props();
 </script>
 
 <div class="flex flex-col w-full gap-4">
