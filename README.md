@@ -1,7 +1,7 @@
 # 📚 Twitter (X) Downloader 🚀
 Yet another media downloader for tweets!
 
-Powered by `Svelte`, `.NET 8`, and `C hashtag version 12`.
+Powered by `Svelte 5`, `.NET 8`, and `C hashtag version 12`.
 ## 🛠️ Built With
 ![Svelte](https://img.shields.io/badge/svelte-%23f1413d.svg?style=for-the-badge&logo=svelte&logoColor=white)
 ![.Net](https://img.shields.io/badge/.NET-5C2D91?style=for-the-badge&logo=.net&logoColor=white)
