@@ -12,11 +12,20 @@ builder.Services.AddCors(options =>
     options.AddDefaultPolicy(
         policy =>
         {
-            var origins = builder.Configuration.GetSection("Cors:AllowedOrigins").Get<string[]>();
-            policy.WithOrigins(origins!)
-                .AllowAnyMethod()
-                .AllowAnyHeader()
-                .AllowCredentials();
+            var env = builder.Environment;
+
+            var originsString = Environment.GetEnvironmentVariable("CORS_ALLOWED_ORIGINS");
+            var origins = env.IsProduction()
+                ? originsString?.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+                : builder.Configuration.GetSection("Cors:AllowedOrigins").Get<string[]>();
+
+            if (origins is not null && origins.Length > 0)
+            {
+                policy.WithOrigins(origins!)
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials();
+            }
         });
 });
 
